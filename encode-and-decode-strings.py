@@ -30,7 +30,7 @@ class Solution:
             else:
                 i += 1
                 strLen = int(num)
-                str = s[i: i + strLen]
+                str = s[i : i + strLen]
                 i += strLen - 1
                 res.append(str)
                 num = ""
