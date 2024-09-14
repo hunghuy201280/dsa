@@ -3,7 +3,7 @@ from typing import List
 from twisted.python.util import println
 
 
-class Solution:
+class Solution1:
     def checkStraight(self, row: List[str]) -> bool:
         l = set()
         for s in row:
@@ -16,15 +16,9 @@ class Solution:
         return True
 
     def getBoxIndex(self, x: int, y: int) -> int:
-        temp = int(x / 3) + int(y / 3)
-        extra = 0
-        if y > 2:
-            if y < 6:
-                extra = 2
-            else:
-                extra = 4
-        res = temp + extra
-        return res
+        temp = int(x / 3) * 3 + int(y / 3)
+
+        return temp
 
     def isValidSudoku(self, board: List[List[str]]) -> bool:
 
@@ -48,6 +42,27 @@ class Solution:
             if not isValid:
                 return False
 
+        return True
+
+
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        cols = [[False for x in range(9)] for x in range(9)]
+        rows = [[False for x in range(9)] for x in range(9)]
+        boxes = [[False for x in range(9)] for x in range(9)]
+
+        for i in range(9):
+            for j in range(9):
+                if board[i][j] == ".":
+                    continue
+                num = int(board[i][j]) - 1
+
+                boxIndex = int(i / 3) * 3 + int(j / 3)
+                if cols[j][num] or rows[i][num] or boxes[boxIndex][num]:
+                    return False
+                cols[j][num] = True
+                rows[i][num] = True
+                boxes[boxIndex][num] = True
         return True
 
 
