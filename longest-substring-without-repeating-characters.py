@@ -3,18 +3,27 @@ from typing import List
 
 class Solution:
     def lengthOfLongestSubstring(self, s):
+        if len(s)==0:
+            return 0
 
         strSet=set()
         l=0
-        maxLength=0
+        maxLength=1
+
         for r in range(len(s)):
             c=s[r]
-            if c in strSet:
-                maxLength=max(maxLength,r-l)
-                l=r
 
+            while c in strSet:
+                strSet.remove(s[l])
+                l+=1
+
+            maxLength=max(maxLength,r-l+1)
             strSet.add(c)
-        return maxLength
+
+        if len(strSet)==len(s):
+            return len(s)
+
+        return  maxLength
 
 
 
@@ -39,10 +48,18 @@ class Solution:
 
 if __name__ == "__main__":
     s = Solution()
+    res = s.lengthOfLongestSubstring("aab")
+    print(res)
     res = s.lengthOfLongestSubstring("abcabcbb")
     print(res)
 
     res = s.lengthOfLongestSubstring("bbbbb")
+    print(res)
+    res = s.lengthOfLongestSubstring("pwwkew")
+    print(res)
+    res = s.lengthOfLongestSubstring("au")
+    print(res)
+    res = s.lengthOfLongestSubstring("dvdf")
     print(res)
     res = s.lengthOfLongestSubstring("pwwkew")
     print(res)
